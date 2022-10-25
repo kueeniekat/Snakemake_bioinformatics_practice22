@@ -1,0 +1,11 @@
+rule all:
+    input:
+        expand("results13/trimmed_{sample}.fastq.gz", sample=config["fastsamp"])
+        
+rule trim:
+	input:
+		sample="fastsamp/{sample}.fastq.gz"
+	output:
+		out_trim="results13/trimmed_{sample}.fastq.gz"
+	shell:
+		"fastp -i {input.sample} -o {output.out_trim} -h report_name.html"
